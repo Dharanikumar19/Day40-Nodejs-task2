@@ -8,18 +8,17 @@ app.get("/create", (req,res) =>{
 var date = new Date();
 var currentTime = date.getTime();
 var timestamp = currentTime.toString();
-var dateAndTime = `${date.getDate()}-${(date.getMonth())}-${date.getFullYear()}-${date.getHours()}-${date.getMinutes()}`;
+var dateAndTime = `${date.getDate()}-${(date.getMonth()+1)}-${date.getFullYear()}-${date.getHours()}-${date.getMinutes()}`;
 var finalTime = (`${dateAndTime} ${".txt"}`);
-  fs.writeFile(finalTime, timestamp, function (err){
+  fs.writeFile(`./textfiles/${finalTime}`, timestamp, function (err){
     if(err) throw err;
-    console.log("file created")
-    res.sendFile(process.argv[2])
+    console.log("file created succesfully")
 })
 })
 
 
 app.get("/files", (req,res) =>{
-    fs.readdir(process.argv[2], function(err, files) {
+    fs.readdir("./textfiles", function(err, files) {
         if(err) throw err;
         res.json({files})
         console.log(files)
